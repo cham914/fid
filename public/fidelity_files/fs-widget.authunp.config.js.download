@@ -1,0 +1,82 @@
+var scriptFilename = 'fs-widget.authunp.config.js'; // don't forget to set the filename 
+var scriptUrl = (function() {
+    if (document.currentScript) { // support defer & async (mozilla only)
+        return document.currentScript.src;
+    } else {
+        var ls,s;
+        var getSrc = function (ls, attr) {
+            var i, l = ls.length, nf, s;
+            for (i = 0; i < l; i++) {
+                s = null;
+                if (ls[i].getAttribute.length !== undefined) { 
+                    s = ls[i].getAttribute(attr, 2);                    
+                }               
+                if (!s) 
+                	continue; // tag with no src
+                nf = s;
+                nf = nf.split('?')[0].split('/').pop(); // get script filename
+                if (nf === scriptFilename) {
+                    return s;
+                }
+            }
+        };          
+        ls = document.getElementsByTagName('script');
+        s = getSrc(ls, 'src');
+        if ( !s ) { // search reference of script loaded by jQuery.getScript() in meta[name=srcipt][content=url]
+            ls = document.getElementsByTagName('meta');             
+            s = getSrc(ls, 'content');
+        }           
+        if ( s ) 
+        	return s;
+    }
+    return '';
+})();
+
+var urlMatches = scriptUrl.match(/^(https:\/\/.[^/]*)/);
+
+//Browser checks and widget initialization 
+$.getScript(urlMatches[1]+'/ftgw/pages/widget/js/fs-widget.jquery.min.js');
+
+//Load javascript dependencies
+function loadWidget() {
+    $(function() {
+        $('#fs-steps').fsSteps({
+            "fcpsHost": urlMatches[1],
+            "firstStep": "Init",
+            "firstOperation": "Login",
+            "fsapp": "Fas",
+            "useCors": true,
+            "onAjaxStart": function() {
+                if (typeof onFsAjaxStart === "function") {
+                    onFsAjaxStart(this);
+                }
+            },
+            "onAjaxComplete": function() {
+                if (typeof onFsAjaxComplete === "function") {
+                    onFsAjaxComplete(this);
+                }
+            },
+            "debug": true,
+            "onFinish": function(data) {
+                if (typeof onFinish === "function") {
+                    onFinish(data);
+                }
+            },
+            "onContinue": function(data) {
+                if (typeof onContinue === "function") {
+                	return onContinue(data);
+                }
+                else
+                {
+                	return true;
+                }
+            },
+            "onError": function(data) {
+                if (typeof onError === "function") {
+                    onError(data);
+                }
+            },
+            "errorPlacement" : "fsErrorPlacement"
+        });
+    });
+};
